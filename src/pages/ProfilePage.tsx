@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CreatePost } from '../components/feed/CreatePost';
 import { PostCard } from '../components/feed/PostCard';
+import { MobileAds } from '../components/layout/MobileAds';
 import { AboutPanel, ProfileHero } from '../components/profile/ProfileHero';
 import { SectionTitle } from '../components/ui/Card';
 import { Tabs } from '../components/ui/Tabs';
@@ -26,6 +27,7 @@ export function ProfilePage() {
 
         <div className="min-w-0 flex-1 space-y-8">
           <CreatePost />
+          <MobileAds count={2} />
 
           <Tabs
             activeTab={activeTab}

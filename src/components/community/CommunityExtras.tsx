@@ -55,7 +55,9 @@ export function MemberRow({
       to={member.id === '1' ? '/profile' : `/friends/${member.id}`}
       className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-fb-bg"
     >
-      <Avatar src={member.avatar} alt={member.name} size="md" />
+      <span className="shrink-0 leading-none">
+        <Avatar src={member.avatar} alt={member.name} size="md" />
+      </span>
       <div className="min-w-0 flex-1">
         <p className="truncate font-semibold text-fb-text">{member.name}</p>
         {role && <p className="text-sm text-fb-muted">{role}</p>}

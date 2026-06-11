@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { currentUser, friends } from '../../data/mockData';
 import { useApp } from '../../context/AppContext';
+import { Avatar } from '../ui/Card';
 import { MessengerModal } from '../messenger/MessengerModal';
 
 const navItems = [
@@ -152,13 +153,11 @@ export function Navbar() {
             <Link
               to="/profile"
               aria-label="Your profile"
-              className={`ml-1 rounded-full ${location.pathname === '/profile' ? 'ring-2 ring-white/80' : ''}`}
+              className={`inline-flex shrink-0 items-center rounded-full ${
+                location.pathname === '/profile' ? 'ring-2 ring-white ring-offset-2 ring-offset-fb-blue' : ''
+              }`}
             >
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                className="h-8 w-8 rounded-full object-cover"
-              />
+              <Avatar src={currentUser.avatar} alt={currentUser.name} size="sm" />
             </Link>
           </nav>
         </div>
@@ -193,12 +192,11 @@ function MobileNav() {
               }`}
             >
               {isProfile ? (
-                <img
+                <Avatar
                   src={currentUser.avatar}
                   alt=""
-                  className={`h-6 w-6 rounded-full object-cover ${
-                    active ? 'ring-2 ring-fb-blue' : ''
-                  }`}
+                  size="xs"
+                  className={active ? 'ring-2 ring-fb-blue ring-offset-2 ring-offset-white' : ''}
                 />
               ) : (
                 Icon && <Icon className="h-5 w-5" />

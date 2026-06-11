@@ -36,7 +36,7 @@ export function PostCard({ post }: { post: Post }) {
   return (
     <Card id={`post-${post.id}`} className="overflow-hidden p-5">
       <div className="flex items-center gap-3">
-        <Link to={authorProfilePath(post.author.id)}>
+        <Link to={authorProfilePath(post.author.id)} className="shrink-0 leading-none">
           <Avatar
             src={post.author.avatar}
             alt={post.author.name}
@@ -44,7 +44,7 @@ export function PostCard({ post }: { post: Post }) {
             hasStory={post.author.hasStory}
           />
         </Link>
-        <div>
+        <div className="min-w-0 flex-1">
           <Link
             to={authorProfilePath(post.author.id)}
             className="text-sm font-medium text-fb-text hover:underline"

@@ -8,12 +8,12 @@ export function FriendCard({ friend }: { friend: User }) {
 
   return (
     <Card className="p-5">
-      <div className="flex items-center gap-4">
-        <Link to={`/friends/${friend.id}`} className="shrink-0">
+      <div className="flex items-center gap-3">
+        <Link to={`/friends/${friend.id}`} className="shrink-0 leading-none">
           <Avatar src={friend.avatar} alt={friend.name} size="lg" hasStory={friend.hasStory} />
         </Link>
 
-        <Link to={`/friends/${friend.id}`} className="min-w-0 flex-1">
+        <Link to={`/friends/${friend.id}`} className="min-w-0 flex-1 self-center">
           <p className="truncate font-medium text-fb-text">{friend.name}</p>
           {friend.mutualFriends !== undefined && (
             <p className="mt-0.5 text-sm text-fb-muted">

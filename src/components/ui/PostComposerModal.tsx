@@ -35,7 +35,9 @@ export function PostComposerModal() {
       />
       <div className="relative w-full max-w-lg rounded-[var(--radius-fb-card)] bg-white p-6 shadow-xl">
         <div className="mb-4 flex items-center gap-3">
-          <Avatar src={currentUser.avatar} alt={currentUser.name} size="md" />
+          <span className="shrink-0 leading-none">
+            <Avatar src={currentUser.avatar} alt={currentUser.name} size="md" />
+          </span>
           <p className="text-sm font-medium text-fb-text">{currentUser.name}</p>
         </div>
         <h2 className="mb-3 text-lg font-medium text-fb-text">{modeLabels[composerMode]}</h2>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppLayout } from '../components/layout/AppLayout';
+import { MobileAds } from '../components/layout/MobileAds';
 import { FriendCard } from '../components/friends/FriendCard';
 import {
   FriendRequestCard,
@@ -21,6 +22,8 @@ export function FriendsPage() {
           <h1 className="text-xl font-medium text-fb-text">Friends</h1>
           <p className="mt-0.5 text-sm text-fb-muted">Your connections</p>
         </div>
+
+        <MobileAds count={2} />
 
         <Tabs
           activeTab={activeTab}

@@ -8,9 +8,11 @@ export function FriendRequestCard({ request }: { request: FriendRequest }) {
 
   return (
     <Card className="p-5">
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
         <Link to={`/friends/${request.from.id}`} className="flex min-w-0 flex-1 items-center gap-4">
-          <Avatar src={request.from.avatar} alt={request.from.name} size="md" />
+          <span className="shrink-0 leading-none">
+            <Avatar src={request.from.avatar} alt={request.from.name} size="md" />
+          </span>
           <div className="min-w-0">
             <p className="truncate font-medium text-fb-text">{request.from.name}</p>
             <p className="text-xs text-fb-muted">
@@ -47,8 +49,8 @@ export function FriendSuggestionCard({ suggestion }: { suggestion: FriendSuggest
 
   return (
     <Card className="p-6 text-center">
-      <Link to={`/friends/${suggestion.user.id}`}>
-        <Avatar src={suggestion.user.avatar} alt={suggestion.user.name} size="lg" className="mx-auto" />
+      <Link to={`/friends/${suggestion.user.id}`} className="inline-flex flex-col items-center">
+        <Avatar src={suggestion.user.avatar} alt={suggestion.user.name} size="lg" />
         <p className="mt-4 font-medium text-fb-text">{suggestion.user.name}</p>
       </Link>
       <p className="mt-2 text-xs text-fb-muted">{suggestion.reason}</p>

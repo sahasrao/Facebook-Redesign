@@ -31,7 +31,9 @@ export function MessengerModal({ friend, onClose }: MessengerModalProps) {
 
       <div className="relative flex h-[min(520px,80dvh)] w-full max-w-[380px] flex-col overflow-hidden rounded-[var(--radius-fb-card)] bg-white">
         <header className="flex h-14 shrink-0 items-center gap-3 px-5">
-          <Avatar src={friend.avatar} alt={friend.name} size="sm" />
+          <span className="shrink-0 leading-none">
+            <Avatar src={friend.avatar} alt={friend.name} size="sm" />
+          </span>
           <p className="flex-1 text-sm font-medium text-fb-text">{friend.name}</p>
           <button
             type="button"

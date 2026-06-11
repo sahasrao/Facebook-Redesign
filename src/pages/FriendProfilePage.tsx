@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { PostCard } from '../components/feed/PostCard';
 import { MutualFriendsBanner } from '../components/friends/FriendExtras';
+import { MobileAds } from '../components/layout/MobileAds';
 import { AboutPanel, ProfileHero } from '../components/profile/ProfileHero';
 import { Tabs } from '../components/ui/Tabs';
 import {
@@ -44,6 +45,7 @@ export function FriendProfilePage() {
         <AboutPanel profile={profile} />
 
         <div className="min-w-0 flex-1 space-y-8">
+          <MobileAds count={2} />
           <MutualFriendsBanner names={getMutualFriendNames()} />
 
           <Tabs

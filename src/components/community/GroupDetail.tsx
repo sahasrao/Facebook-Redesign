@@ -12,6 +12,7 @@ import { useApp } from '../../context/AppContext';
 import { CreatePost } from '../feed/CreatePost';
 import { PostCard } from '../feed/PostCard';
 import { EventCard, GroupRules, MemberRow } from './CommunityExtras';
+import { MobileAds } from '../layout/MobileAds';
 import { Card, SectionTitle } from '../ui/Card';
 import { Tabs } from '../ui/Tabs';
 
@@ -113,6 +114,7 @@ export function GroupContent({ group }: GroupContentProps) {
       {activeTab === 'discussion' && (
         <div className="space-y-6">
           <CreatePost groupId={group.id} />
+          <MobileAds count={2} />
           {groupPosts.length > 0 ? (
             groupPosts.map((post) => <PostCard key={post.id} post={post} />)
           ) : (

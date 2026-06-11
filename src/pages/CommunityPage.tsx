@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppLayout } from '../components/layout/AppLayout';
+import { MobileAds } from '../components/layout/MobileAds';
 import { GroupCard, CommunityGroupRow } from '../components/community/GroupCard';
 import {
   CategoryFilter,
@@ -41,6 +42,8 @@ export function CommunityPage() {
     <AppLayout showRightSidebar="contacts">
       <div className="space-y-10">
         <CommunityHero searchQuery={groupSearch} onSearchChange={setGroupSearch} />
+
+        <MobileAds count={2} />
 
         <section>
           <SectionTitle className="mb-3">Browse by topic</SectionTitle>

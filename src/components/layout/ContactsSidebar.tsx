@@ -14,11 +14,13 @@ export function ContactsSidebar() {
           <ul className="mt-4 space-y-3">
             {friends.map((friend) => (
               <li key={friend.id}>
-                <Link
-                  to={`/friends/${friend.id}`}
-                  className="flex items-center gap-3 text-sm text-fb-text hover:opacity-70"
-                >
+              <Link
+                to={`/friends/${friend.id}`}
+                className="flex items-center gap-3 text-sm text-fb-text hover:opacity-70"
+              >
+                <span className="shrink-0 leading-none">
                   <Avatar src={friend.avatar} alt={friend.name} size="sm" />
+                </span>
                   <span className="truncate">{friend.name}</span>
                 </Link>
               </li>

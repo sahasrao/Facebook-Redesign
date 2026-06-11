@@ -19,36 +19,37 @@ export function ProfileHero({ profile, isSelf, onMessage }: ProfileHeroProps) {
           <button
             type="button"
             onClick={addCoverPhoto}
-            className="absolute right-6 top-6 rounded-full bg-white/90 px-4 py-2 text-sm text-fb-muted hover:text-fb-text"
+            className="absolute right-4 top-4 rounded-full bg-white/90 px-4 py-2 text-sm text-fb-muted hover:text-fb-text sm:right-6 sm:top-6"
           >
             Add cover photo
           </button>
         )}
       </div>
 
-      <div className="relative px-6 pb-8 sm:px-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
-            <div className="relative -mt-14 sm:-mt-16">
+      <div className="relative px-4 pb-6 sm:px-8 sm:pb-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:gap-5">
+            <div className="relative -mt-14 shrink-0 sm:-mt-[84px]">
               <Avatar
                 src={profile.avatar}
                 alt={profile.name}
                 size="profile"
                 hasStory={profile.hasStory}
+                border
               />
               {isSelf && (
                 <button
                   type="button"
                   aria-label="Add profile photo"
                   onClick={addProfilePhoto}
-                  className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-fb-blue text-white"
+                  className="absolute bottom-1 right-1 flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-fb-blue text-white shadow-sm"
                 >
                   <PlusIcon />
                 </button>
               )}
             </div>
 
-            <div>
+            <div className="text-center sm:pb-1 sm:text-left">
               <h1 className="text-xl font-medium sm:text-2xl">{profile.name}</h1>
               <p className="mt-1 text-sm text-fb-muted">
                 {profile.friendCount.toLocaleString()} friends · {profile.location}
@@ -56,7 +57,7 @@ export function ProfileHero({ profile, isSelf, onMessage }: ProfileHeroProps) {
             </div>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex justify-center gap-3 sm:justify-end">
             {isSelf ? (
               <button
                 type="button"
@@ -144,7 +145,7 @@ function GroupsList({ groupIds }: { groupIds: string[] }) {
             to={`/community/${group.id}`}
             className="flex items-center gap-2.5 rounded-lg py-1 text-sm text-fb-text hover:opacity-70"
           >
-            <img src={group.image} alt="" className="h-7 w-7 rounded-md object-cover" />
+            <img src={group.image} alt="" className="h-7 w-7 shrink-0 rounded-md object-cover" />
             <span>{group.name}</span>
           </Link>
         </li>

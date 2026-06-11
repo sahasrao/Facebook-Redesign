@@ -19,30 +19,56 @@ interface AvatarProps {
   alt: string;
   size?: AvatarSize;
   hasStory?: boolean;
+  /** White ring for profile photos overlapping a cover image */
+  border?: boolean;
   className?: string;
 }
 
 const avatarSizes = {
+  xs: 'h-7 w-7',
   sm: 'h-8 w-8',
   md: 'h-10 w-10',
   lg: 'h-14 w-14',
   xl: 'h-24 w-24',
-  post: 'h-10 w-10',
-  friend: 'h-14 w-14',
-  profile: 'h-28 w-28 sm:h-32 sm:w-32',
+  profile: 'h-[112px] w-[112px] sm:h-[168px] sm:w-[168px]',
 };
 
 export type AvatarSize = keyof typeof avatarSizes;
 
-export function Avatar({ src, alt, size = 'md', hasStory, className = '' }: AvatarProps) {
-  const ring = hasStory ? 'ring-2 ring-fb-blue' : '';
+const storyRingSizes: Record<AvatarSize, string> = {
+  xs: 'ring-[1.5px] ring-offset-1',
+  sm: 'ring-2 ring-offset-2',
+  md: 'ring-2 ring-offset-2',
+  lg: 'ring-2 ring-offset-2',
+  xl: 'ring-2 ring-offset-2',
+  profile: 'ring-[3px] ring-offset-[3px]',
+};
+
+export function Avatar({
+  src,
+  alt,
+  size = 'md',
+  hasStory,
+  border,
+  className = '',
+}: AvatarProps) {
+  const storyRing = hasStory
+    ? `ring-fb-blue ${storyRingSizes[size]} ring-offset-white`
+    : '';
+  const profileBorder = border ? 'shadow-sm ring-4 ring-white' : '';
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={`rounded-full object-cover ${avatarSizes[size]} ${ring} ${className}`}
-    />
+    <span
+      className={`relative inline-flex shrink-0 overflow-hidden rounded-full bg-fb-input ${avatarSizes[size]} ${storyRing} ${profileBorder} ${className}`}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        className="block h-full w-full object-cover object-center"
+      />
+    </span>
   );
 }
 

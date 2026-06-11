@@ -11,8 +11,10 @@ export function CreatePost({ groupId }: CreatePostProps) {
 
   return (
     <Card className="p-5">
-      <div className="flex items-center gap-4">
-        <Avatar src={currentUser.avatar} alt={currentUser.name} size="md" />
+      <div className="flex items-center gap-3">
+        <div className="shrink-0 leading-none">
+          <Avatar src={currentUser.avatar} alt={currentUser.name} size="md" />
+        </div>
         <button
           type="button"
           onClick={() => openComposer('text', groupId)}

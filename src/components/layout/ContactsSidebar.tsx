@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { friends } from '../../data/mockData';
-import { rightSidebarAds } from '../../data/ads';
 import { SidebarAds } from './SidebarAds';
 import { Avatar, SectionTitle } from '../ui/Card';
 
@@ -8,7 +7,7 @@ export function ContactsSidebar() {
   return (
     <aside className="hidden w-52 shrink-0 xl:block">
       <div className="sticky top-24 space-y-8 py-2">
-        <SidebarAds ads={rightSidebarAds} />
+        <SidebarAds count={3} />
 
         <div>
           <SectionTitle>Contacts</SectionTitle>
@@ -35,7 +34,7 @@ export function SponsoredSidebar() {
   return (
     <aside className="hidden w-52 shrink-0 lg:block">
       <div className="sticky top-24 py-2">
-        <SidebarAds ads={rightSidebarAds} />
+        <SidebarAds count={3} />
       </div>
     </aside>
   );

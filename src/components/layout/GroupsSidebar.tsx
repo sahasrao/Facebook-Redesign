@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { groups } from '../../data/mockData';
-import { leftSidebarAds } from '../../data/ads';
 import { SidebarAds } from './SidebarAds';
 import { SectionTitle } from '../ui/Card';
 
@@ -35,7 +34,7 @@ export function GroupsSidebar() {
           </Link>
         </div>
 
-        <SidebarAds ads={leftSidebarAds} />
+        <SidebarAds count={2} />
       </div>
     </aside>
   );

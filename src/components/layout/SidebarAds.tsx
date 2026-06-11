@@ -1,12 +1,15 @@
-import { SidebarAd as SidebarAdType } from '../../data/ads';
+import { useState } from 'react';
+import { SidebarAd as SidebarAdType, pickRandomAds } from '../../data/ads';
 import { SectionTitle } from '../ui/Card';
 
 interface SidebarAdsProps {
-  ads: SidebarAdType[];
+  count?: number;
   className?: string;
 }
 
-export function SidebarAds({ ads, className = '' }: SidebarAdsProps) {
+export function SidebarAds({ count = 3, className = '' }: SidebarAdsProps) {
+  const [ads] = useState(() => pickRandomAds(count));
+
   if (ads.length === 0) return null;
 
   return (

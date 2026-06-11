@@ -9,40 +9,91 @@ export interface SidebarAd {
 export const sidebarAds: SidebarAd[] = [
   {
     id: 'ad-1',
-    sponsor: 'naturalhistorymuseum.org',
-    title: 'See the new fossil exhibit — tickets from $12',
-    image: '/figma/group-dinos.png',
-    url: 'https://example.com/dinos',
+    sponsor: 'cloudsleep.com',
+    title: 'Memory foam mattress — 40% off this week only',
+    image: 'https://picsum.photos/seed/mattress/400/400',
+    url: 'https://example.com/mattress',
   },
   {
     id: 'ad-2',
-    sponsor: 'leafandstem.co',
-    title: 'Monstera Monday sale — 30% off rare plants',
-    image: '/figma/group-plants.png',
-    url: 'https://example.com/plants',
+    sponsor: 'barkbox.pet',
+    title: 'Monthly dog toy box — first box free',
+    image: 'https://picsum.photos/seed/dogbox/400/400',
+    url: 'https://example.com/barkbox',
   },
   {
     id: 'ad-3',
-    sponsor: 'bayarea.aquarium',
-    title: 'Member nights at the aquarium this weekend',
-    image: '/figma/group-aquarium.png',
-    url: 'https://example.com/aquarium',
+    sponsor: 'duolingo.com',
+    title: 'Learn Japanese in 5 minutes a day',
+    image: 'https://picsum.photos/seed/language/400/400',
+    url: 'https://example.com/duolingo',
   },
   {
     id: 'ad-4',
-    sponsor: 'spinmaster.yo',
-    title: 'Learn 5 tricks in 5 days — free yo-yo kit',
-    image: '/figma/group-yoyo.png',
-    url: 'https://example.com/yoyo',
+    sponsor: 'nordvpn.net',
+    title: 'Browse privately — 2 years for the price of 1',
+    image: 'https://picsum.photos/seed/vpn/400/400',
+    url: 'https://example.com/vpn',
   },
   {
     id: 'ad-5',
-    sponsor: 'modelrailways.com',
-    title: 'HO scale starter sets — free shipping',
-    image: '/figma/group-trains.png',
-    url: 'https://example.com/trains',
+    sponsor: 'hellofresh.meals',
+    title: 'Dinner kits delivered — 16 free meals',
+    image: 'https://picsum.photos/seed/meals/400/400',
+    url: 'https://example.com/meals',
+  },
+  {
+    id: 'ad-6',
+    sponsor: 'coinbase.app',
+    title: 'Buy crypto in under 60 seconds',
+    image: 'https://picsum.photos/seed/crypto/400/400',
+    url: 'https://example.com/crypto',
+  },
+  {
+    id: 'ad-7',
+    sponsor: 'calm.audio',
+    title: 'Sleep stories narrated by celebrities',
+    image: 'https://picsum.photos/seed/calm/400/400',
+    url: 'https://example.com/calm',
+  },
+  {
+    id: 'ad-8',
+    sponsor: 'wayfair.home',
+    title: 'Accent chairs under $99 — ships free',
+    image: 'https://picsum.photos/seed/chair/400/400',
+    url: 'https://example.com/wayfair',
+  },
+  {
+    id: 'ad-9',
+    sponsor: 'masterclass.live',
+    title: 'Cook like a chef — watch anywhere',
+    image: 'https://picsum.photos/seed/cooking/400/400',
+    url: 'https://example.com/masterclass',
+  },
+  {
+    id: 'ad-10',
+    sponsor: 'audible.books',
+    title: 'Your first audiobook is on us',
+    image: 'https://picsum.photos/seed/books/400/400',
+    url: 'https://example.com/audible',
+  },
+  {
+    id: 'ad-11',
+    sponsor: 'temu.shop',
+    title: 'Phone cases from $0.99 — limited stock',
+    image: 'https://picsum.photos/seed/phone/400/400',
+    url: 'https://example.com/temu',
+  },
+  {
+    id: 'ad-12',
+    sponsor: 'peloton.fit',
+    title: '30-day home workout trial — no bike needed',
+    image: 'https://picsum.photos/seed/fitness/400/400',
+    url: 'https://example.com/peloton',
   },
 ];
 
-export const leftSidebarAds = sidebarAds.slice(0, 2);
-export const rightSidebarAds = sidebarAds.slice(0, 3);
+export function pickRandomAds(count: number): SidebarAd[] {
+  const shuffled = [...sidebarAds].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, shuffled.length));
+}

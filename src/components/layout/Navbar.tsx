@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { currentUser, friends } from '../../data/mockData';
+import { useApp } from '../../context/AppContext';
 import { MessengerModal } from '../messenger/MessengerModal';
 
 const navItems = [
@@ -12,7 +12,24 @@ const navItems = [
 
 export function Navbar() {
   const location = useLocation();
-  const [messengerOpen, setMessengerOpen] = useState(false);
+  const navigate = useNavigate();
+  const {
+    openMessenger,
+    messengerOpen,
+    messengerFriend,
+    closeMessenger,
+    notificationsOpen,
+    toggleNotifications,
+    closeNotifications,
+    notifications,
+    unreadNotificationCount,
+    markNotificationRead,
+    searchQuery,
+    setSearchQuery,
+    searchResults,
+  } = useApp();
+
+  const handleMessengerOpen = () => openMessenger(friends[0]);
 
   return (
     <>
@@ -28,8 +45,28 @@ export function Navbar() {
               <input
                 type="search"
                 placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="h-9 w-full rounded-full bg-white/95 pl-10 pr-4 text-sm text-fb-text outline-none placeholder:text-fb-muted"
               />
+              {searchResults.length > 0 && (
+                <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl bg-white shadow-lg">
+                  {searchResults.map((result) => (
+                    <button
+                      key={`${result.type}-${result.id}`}
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery('');
+                        navigate(result.href);
+                      }}
+                      className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm hover:bg-fb-bg"
+                    >
+                      <span className="text-xs uppercase text-fb-muted">{result.type}</span>
+                      <span className="font-medium text-fb-text">{result.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -54,19 +91,63 @@ export function Navbar() {
             <button
               type="button"
               aria-label="Messenger"
-              onClick={() => setMessengerOpen(true)}
+              onClick={handleMessengerOpen}
               className="hidden rounded-lg p-2 hover:bg-white/10 md:flex"
             >
               <MessengerIcon className="h-5 w-5 text-white" />
             </button>
 
-            <button
-              type="button"
-              aria-label="Notifications"
-              className="hidden rounded-lg p-2 hover:bg-white/10 md:flex"
-            >
-              <BellIcon className="h-5 w-5 text-white" />
-            </button>
+            <div className="relative hidden md:block">
+              <button
+                type="button"
+                aria-label="Notifications"
+                onClick={toggleNotifications}
+                className="relative rounded-lg p-2 hover:bg-white/10"
+              >
+                <BellIcon className="h-5 w-5 text-white" />
+                {unreadNotificationCount > 0 && (
+                  <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                    {unreadNotificationCount}
+                  </span>
+                )}
+              </button>
+
+              {notificationsOpen && (
+                <>
+                  <button
+                    type="button"
+                    aria-label="Close notifications"
+                    className="fixed inset-0 z-40"
+                    onClick={closeNotifications}
+                  />
+                  <div className="absolute right-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl bg-white shadow-xl">
+                    <p className="border-b border-fb-input px-4 py-3 text-sm font-medium text-fb-text">
+                      Notifications
+                    </p>
+                    <ul className="max-h-80 overflow-y-auto">
+                      {notifications.map((n) => (
+                        <li key={n.id}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              markNotificationRead(n.id);
+                              closeNotifications();
+                              if (n.href) navigate(n.href);
+                            }}
+                            className={`w-full px-4 py-3 text-left hover:bg-fb-bg ${
+                              n.read ? 'bg-white' : 'bg-blue-50/50'
+                            }`}
+                          >
+                            <p className="text-sm text-fb-text">{n.text}</p>
+                            <p className="mt-1 text-xs text-fb-muted">{n.time} ago</p>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
+            </div>
 
             <Link
               to="/profile"
@@ -85,8 +166,8 @@ export function Navbar() {
 
       <MobileNav />
 
-      {messengerOpen && (
-        <MessengerModal friend={friends[0]} onClose={() => setMessengerOpen(false)} />
+      {messengerOpen && messengerFriend && (
+        <MessengerModal friend={messengerFriend} onClose={closeMessenger} />
       )}
     </>
   );

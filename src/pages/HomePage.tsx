@@ -1,10 +1,10 @@
 import { AppLayout } from '../components/layout/AppLayout';
 import { CreatePost } from '../components/feed/CreatePost';
 import { PostCard } from '../components/feed/PostCard';
-import { posts } from '../data/mockData';
+import { useApp } from '../context/AppContext';
 
 export function HomePage() {
-  const feedPosts = posts.filter((post) => post.id !== '4');
+  const { feedPosts } = useApp();
 
   return (
     <AppLayout>

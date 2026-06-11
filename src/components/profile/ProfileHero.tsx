@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { UserProfile, groups } from '../../data/mockData';
+import { useApp } from '../../context/AppContext';
 import { Avatar } from '../ui/Card';
 
 interface ProfileHeroProps {
@@ -9,12 +10,15 @@ interface ProfileHeroProps {
 }
 
 export function ProfileHero({ profile, isSelf, onMessage }: ProfileHeroProps) {
+  const { editProfile, addCoverPhoto, addProfilePhoto, isFriend, showToast } = useApp();
+
   return (
     <div className="overflow-hidden rounded-[var(--radius-fb-card)] bg-white">
       <div className="relative h-28 bg-fb-input sm:h-36">
         {isSelf && (
           <button
             type="button"
+            onClick={addCoverPhoto}
             className="absolute right-6 top-6 rounded-full bg-white/90 px-4 py-2 text-sm text-fb-muted hover:text-fb-text"
           >
             Add cover photo
@@ -36,6 +40,7 @@ export function ProfileHero({ profile, isSelf, onMessage }: ProfileHeroProps) {
                 <button
                   type="button"
                   aria-label="Add profile photo"
+                  onClick={addProfilePhoto}
                   className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-fb-blue text-white"
                 >
                   <PlusIcon />
@@ -55,6 +60,7 @@ export function ProfileHero({ profile, isSelf, onMessage }: ProfileHeroProps) {
             {isSelf ? (
               <button
                 type="button"
+                onClick={editProfile}
                 className="rounded-full bg-fb-blue px-5 py-2.5 text-sm font-medium text-white hover:bg-fb-blue-dark"
               >
                 Edit profile
@@ -63,13 +69,14 @@ export function ProfileHero({ profile, isSelf, onMessage }: ProfileHeroProps) {
               <>
                 <button
                   type="button"
+                  onClick={() => showToast(isFriend(profile.id) ? 'Friends' : 'Friend request sent')}
                   className="rounded-full bg-fb-blue px-5 py-2.5 text-sm font-medium text-white hover:bg-fb-blue-dark"
                 >
-                  Friends
+                  {isFriend(profile.id) ? 'Friends ✓' : 'Add friend'}
                 </button>
                 <button
                   type="button"
-                  onClick={onMessage}
+                  onClick={() => onMessage?.()}
                   className="rounded-full bg-fb-input px-5 py-2.5 text-sm font-medium text-fb-text hover:bg-[#e8eaed]"
                 >
                   Message

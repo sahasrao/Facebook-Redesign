@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Group } from '../../data/mockData';
+import { useApp } from '../../context/AppContext';
 import { Card } from '../ui/Card';
 
 export function GroupCard({ group }: { group: Group }) {
+  const { isGroupJoined, joinGroup } = useApp();
+  const joined = isGroupJoined(group.id);
+
   return (
     <Card id={group.id} className="overflow-hidden p-5">
       <div className="flex flex-col gap-5 sm:flex-row">
@@ -20,12 +24,19 @@ export function GroupCard({ group }: { group: Group }) {
             <p className="mt-3 text-sm leading-relaxed text-fb-muted">{group.description}</p>
           </div>
           <div className="flex gap-3">
-            <button
-              type="button"
-              className="rounded-full bg-fb-blue px-4 py-2 text-sm font-medium text-white hover:bg-fb-blue-dark"
-            >
-              Join
-            </button>
+            {joined ? (
+              <span className="rounded-full bg-fb-input px-4 py-2 text-sm font-medium text-fb-muted">
+                Joined
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={() => joinGroup(group.id)}
+                className="rounded-full bg-fb-blue px-4 py-2 text-sm font-medium text-white hover:bg-fb-blue-dark"
+              >
+                Join
+              </button>
+            )}
             <Link
               to={`/community/${group.id}`}
               className="rounded-full bg-fb-input px-4 py-2 text-sm font-medium text-fb-text hover:bg-[#e8eaed]"

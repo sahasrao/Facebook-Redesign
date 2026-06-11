@@ -5,14 +5,12 @@ import { PostCard } from '../components/feed/PostCard';
 import { AboutPanel, ProfileHero } from '../components/profile/ProfileHero';
 import { SectionTitle } from '../components/ui/Card';
 import { Tabs } from '../components/ui/Tabs';
-import {
-  currentUserProfile,
-  getGroupsForUser,
-  getPostsByAuthor,
-} from '../data/mockData';
+import { currentUserProfile, getGroupsForUser } from '../data/mockData';
+import { useApp } from '../context/AppContext';
 
 export function ProfilePage() {
   const [activeTab, setActiveTab] = useState('posts');
+  const { getPostsByAuthor } = useApp();
   const userPosts = getPostsByAuthor('1');
   const userGroups = getGroupsForUser('1');
   const photos = userPosts.flatMap((p) => p.images ?? []);

@@ -2,21 +2,20 @@ import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { PostCard } from '../components/feed/PostCard';
 import { MutualFriendsBanner } from '../components/friends/FriendExtras';
-import { MessengerModal } from '../components/messenger/MessengerModal';
 import { AboutPanel, ProfileHero } from '../components/profile/ProfileHero';
 import { Tabs } from '../components/ui/Tabs';
 import {
   getFriendProfile,
   getGroupsForUser,
   getMutualFriendNames,
-  getPostsByAuthor,
 } from '../data/mockData';
+import { useApp } from '../context/AppContext';
 
 export function FriendProfilePage() {
   const { friendId } = useParams();
   const profile = friendId ? getFriendProfile(friendId) : undefined;
   const [activeTab, setActiveTab] = useState('posts');
-  const [messengerOpen, setMessengerOpen] = useState(false);
+  const { getPostsByAuthor, openMessenger } = useApp();
 
   if (!profile) {
     return <Navigate to="/friends" replace />;
@@ -37,7 +36,7 @@ export function FriendProfilePage() {
         </Link>
         <ProfileHero
           profile={profile}
-          onMessage={() => setMessengerOpen(true)}
+          onMessage={() => openMessenger(profile)}
         />
       </div>
 
@@ -117,10 +116,6 @@ export function FriendProfilePage() {
           )}
         </div>
       </div>
-
-      {messengerOpen && (
-        <MessengerModal friend={profile} onClose={() => setMessengerOpen(false)} />
-      )}
     </div>
   );
 }

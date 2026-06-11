@@ -7,10 +7,12 @@ import {
   FriendSuggestionCard,
 } from '../components/friends/FriendExtras';
 import { Tabs } from '../components/ui/Tabs';
-import { friendRequests, friendSuggestions, friends } from '../data/mockData';
+import { friends } from '../data/mockData';
+import { useApp } from '../context/AppContext';
 
 export function FriendsPage() {
   const [activeTab, setActiveTab] = useState('all');
+  const { friendRequests, friendSuggestions } = useApp();
 
   return (
     <AppLayout showRightSidebar="sponsored">
@@ -54,9 +56,15 @@ export function FriendsPage() {
 
         {activeTab === 'suggestions' && (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {friendSuggestions.map((suggestion) => (
-              <FriendSuggestionCard key={suggestion.id} suggestion={suggestion} />
-            ))}
+            {friendSuggestions.length > 0 ? (
+              friendSuggestions.map((suggestion) => (
+                <FriendSuggestionCard key={suggestion.id} suggestion={suggestion} />
+              ))
+            ) : (
+              <p className="col-span-full rounded-[var(--radius-fb-card)] bg-white p-8 text-center text-sm text-fb-muted">
+                No suggestions right now.
+              </p>
+            )}
           </div>
         )}
 

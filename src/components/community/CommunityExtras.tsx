@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 import { GroupEvent } from '../../data/mockData';
+import { useApp } from '../../context/AppContext';
 import { Avatar, Card, SectionTitle } from '../ui/Card';
 
 export function EventCard({ event, groupName }: { event: GroupEvent; groupName?: string }) {
+  const { interestedEventIds, toggleEventInterest, getEventAttendees } = useApp();
+  const interested = interestedEventIds.has(event.id);
+  const attendees = getEventAttendees(event);
+
   return (
     <Card className="p-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -19,14 +24,19 @@ export function EventCard({ event, groupName }: { event: GroupEvent; groupName?:
             {event.location}
           </p>
           <p className="mt-1 text-sm text-fb-muted">
-            {event.attendees} people interested
+            {attendees} people interested
           </p>
         </div>
         <button
           type="button"
-          className="shrink-0 rounded-full bg-fb-input px-4 py-2 text-sm font-medium text-fb-text hover:bg-[#e8eaed]"
+          onClick={() => toggleEventInterest(event.id)}
+          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            interested
+              ? 'bg-fb-blue text-white'
+              : 'bg-fb-input text-fb-text hover:bg-[#e8eaed]'
+          }`}
         >
-          Interested
+          {interested ? 'Interested ✓' : 'Interested'}
         </button>
       </div>
     </Card>
@@ -83,7 +93,13 @@ export function CategoryFilter({
   );
 }
 
-export function CommunityHero() {
+export function CommunityHero({
+  searchQuery,
+  onSearchChange,
+}: {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+}) {
   return (
     <Card className="p-8">
       <h1 className="text-xl font-medium text-fb-text">Community</h1>
@@ -95,6 +111,8 @@ export function CommunityHero() {
         <input
           type="search"
           placeholder="Search groups..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
           className="h-10 w-full rounded-full bg-fb-input pl-11 pr-4 text-sm outline-none focus:bg-[#e8eaed]"
         />
       </div>

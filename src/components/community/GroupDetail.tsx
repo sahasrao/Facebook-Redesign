@@ -7,8 +7,8 @@ import {
   friendProfiles,
   friends,
   getEventsByGroup,
-  getPostsByGroup,
 } from '../../data/mockData';
+import { useApp } from '../../context/AppContext';
 import { CreatePost } from '../feed/CreatePost';
 import { PostCard } from '../feed/PostCard';
 import { EventCard, GroupRules, MemberRow } from './CommunityExtras';
@@ -21,6 +21,8 @@ interface GroupDetailHeaderProps {
 }
 
 export function GroupDetailHeader({ group, joined = true }: GroupDetailHeaderProps) {
+  const { leaveGroup, joinGroup, inviteToGroup } = useApp();
+
   return (
     <div className="overflow-hidden rounded-[var(--radius-fb-card)] bg-white">
       <div className="relative h-28 bg-fb-input sm:h-32">
@@ -53,12 +55,14 @@ export function GroupDetailHeader({ group, joined = true }: GroupDetailHeaderPro
               <>
                 <button
                   type="button"
+                  onClick={() => leaveGroup(group.id)}
                   className="rounded-full bg-fb-input px-4 py-2 text-sm font-medium text-fb-text hover:bg-[#e8eaed]"
                 >
                   Joined
                 </button>
                 <button
                   type="button"
+                  onClick={() => inviteToGroup(group.name)}
                   className="rounded-full bg-fb-blue px-4 py-2 text-sm font-medium text-white hover:bg-fb-blue-dark"
                 >
                   Invite
@@ -67,6 +71,7 @@ export function GroupDetailHeader({ group, joined = true }: GroupDetailHeaderPro
             ) : (
               <button
                 type="button"
+                onClick={() => joinGroup(group.id)}
                 className="rounded-full bg-fb-blue px-5 py-2.5 text-sm font-medium text-white hover:bg-fb-blue-dark"
               >
                 Join group
@@ -85,6 +90,7 @@ interface GroupContentProps {
 
 export function GroupContent({ group }: GroupContentProps) {
   const [activeTab, setActiveTab] = useState('discussion');
+  const { getPostsByGroup } = useApp();
   const groupPosts = getPostsByGroup(group.id);
   const events = getEventsByGroup(group.id);
   const members = getGroupMembers(group);
@@ -106,7 +112,7 @@ export function GroupContent({ group }: GroupContentProps) {
 
       {activeTab === 'discussion' && (
         <div className="space-y-6">
-          <CreatePost />
+          <CreatePost groupId={group.id} />
           {groupPosts.length > 0 ? (
             groupPosts.map((post) => <PostCard key={post.id} post={post} />)
           ) : (
